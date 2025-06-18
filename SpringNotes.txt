@@ -1,0 +1,15 @@
+------------------------------------SPRING NOTES--------------------------------------18 Jun 25
+
+---------------------------------BASIC INSTALLATION---------------------------------
+
+- download java >17 version and eclipse ide
+
+-----------------------------------FIRST PROJECT-------------------------------------
+
+- spring framework provides dependency injection and auto wiring
+- terminology: tight coupling, loose coupling, IOC container, Application context, component Scan, Dependency Injection, Spring Beans, Auto wiring
+
+- go to the website "start.spring.io" and there use the latest version of spring and don't use the snapshot version
+- also use the version of java above 17 and after that click on generate
+- maven: java dependency management tool
+- spring initializer:  website to quickly create java project
