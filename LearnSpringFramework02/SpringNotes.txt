@@ -111,7 +111,7 @@
 - just copy all the beans from the configuration file and paste it in the annotation config file
 - and make that file itself as a configuration file and pass the same filename in application context
 
----------------------------------GETTING SPRING TO CREATE BEAN----------------------------------
+-------------------------GETTING SPRING TO CREATE BEAN, @COMPONENT, @COMPONENT SCAN----------------------------------
 
 - for getting spring to create the bean for use so we have to  declare the game class with annotation @Component
 - after that just where we are using it we have to annotate it with @ComponentScan("packageName")
@@ -120,4 +120,39 @@
 
 - using the @component and @componentScan annotation spring is able to scan the right packages, find the components, create instances,
 - autowire them for us and get the entire application up and running.
+- when you give @componentScan without package name, it will scan the current package
+- when you use @component then spring will manage the instance of a class
 
+----------------------------------WHAT WE DID TILL NOW?-----------------------------------
+
+- as all the beans, we have to declare under the @Configuration we annotated the main class as configuration
+- then instead of creating the bean explicitly we used spring @component to define the bean
+- and to search the bean we have used @component scan and tell the path
+- this will search the component in the package you mentioned and autowire them
+- if there are multiple component then it will give error
+- so we have to declare one of them as @Primary
+- or for running the specific one you cna use @Qualifier too
+
+-----------------------------------@PRIMARY @QUALIFIER-------------------------------------
+
+- @Primary: A bean should be given preference when multiple candidates are qualified
+- @Qualifier: A specific bean should be autowired (name of the bean can be used as a qualifier)
+
+- if it's okay to use any one of them then just use @Autowired
+- if you want to use the specific one then use both @Autowired and @Qualifier("QualifierName")
+- if you don't declare the name of the qualifier then just use the name of class with first letter small as a qualifier name
+
+----------------------------------DEPENDENCY INJECTION TYPES--------------------------------
+
+- Constructor Based: dependencies are set by creating the Bean using its constructor
+- Setter Based: dependencies are set by calling the setter method on your beans
+- Field: No setter or constructor. dependency is injected using reflection.
+
+- if you declare the field of class inside a component and autowired it so it is defined as the field dependency injection
+- if you declare the @Autowired in the setters method then it is called setter based dependency injection
+- if you declare the @Autowired in the constructor then it is called the constructor based dependency injection
+
+- when you use the constructor based injection then you don't need the @Autowired annotation
+- the spring suggest to use the constructor based injection because all the initialization happened just in one method
+- once the initialization is done, the bean is ready to use
+- it's always recommended to use the constructor injection
