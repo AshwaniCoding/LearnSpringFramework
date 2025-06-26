@@ -78,3 +78,32 @@
 - record Person (String name, int age){};
 - when you are using record then you don't need to create setter getter and constructor all those things
 - you can directly use it and get the data
+
+-----------------------------------------BEANS---------------------------------------------------23 Jun 25
+
+- you can get the bean in different ways one is by method name and other by setting the name of it
+- you can also get it by the type as well like Address.class
+- you can use existing beans to create new beans
+
+-----------------------------SPRING CONTAINER, BEAN AND JAVA BEAN, POJO-----------------------------------
+
+- spring container: it manages spring beans and their lifecycle
+- there are two popular types of IOC containers: bean factory and application context
+
+- Java bean: if a class has public no arguments constructor and has getters & setters and has implements serializable
+- then instance of a class is called java bean
+
+- anything which is managed by spring is called spring bean
+- spring uses IOC container(Bean factory or application context) to manage these objects
+
+- pojo: no constraints and any java object is pojo
+
+-----------------------------------GET ALL BEANS--------------------------------------------24 Jun 25
+
+- for getting all the beans list managed by the spring you can use the context.getBeanDefinitionNames()
+- if you have multiple beans with the same class then it will give error
+- for fixing it you will have to set one as a primary one by using @Primary annotation
+
+- another way of autowiring is @Qualifier("qualifierName") and this will autowire the bean
+
+

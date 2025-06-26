@@ -1,0 +1,123 @@
+------------------------------------SPRING NOTES--------------------------------------18 Jun 25
+
+---------------------------------BASIC INSTALLATION---------------------------------
+
+- download java >17 version and eclipse ide
+
+-----------------------------------FIRST PROJECT-------------------------------------
+
+- spring framework provides dependency injection and auto wiring
+- terminology: tight coupling, loose coupling, IOC container, Application context, component Scan, Dependency Injection, Spring Beans, Auto wiring
+
+- go to the website "start.spring.io" and there use the latest version of spring and don't use the snapshot version
+- also use the version of java above 17 and after that click on generate
+- maven: java dependency management tool
+- spring initializer:  website to quickly create java project
+
+---------------------------------RUN MARIO GAME---------------------------------------19 Jun 25
+
+- for running the first game you should crate a class with the main method
+- create object of MarioGame class and also object of GameRunner class
+- also declare the MarioGame object in the game runner class and using constructor set the value
+- pass the object of marioGame class inside the GameRunner object
+- then create a run method inside the GameRunner class
+
+- after that just create the up, down, left and right button in the mario game class
+- after that use all the methods or actions inside the run() method
+
+------------------------------------VAR--------------------------------------
+
+- it is a new feature introduced in java 10
+- type inference: it allows the compiler to infer the type of the variable based on the value assigned
+- compiler will automatically infer the type of variable
+
+----------------------------TIGHTLY COUPLED-----------------------------------
+
+- suppose you create another game SuperContraGame with some actions like up, down, left and right
+- and use the same game runner file to run the game
+- then you have to do changes like you have to declare the object of new superContraGame
+- this is called the tight coupling
+- coupling: how much work is involved in changing something
+- few examples: a car is tightly coupled to an engine while wheels are loosely coupled to car
+- another example is you can go with laptop anywhere but you can not move computer anywhere
+- basically it should not specific to only one game
+- in the above case game runner is tightly coupled to only one class
+
+- when one class is heavily dependent on another class that is called the tight coupling
+
+--------------------------------LOOSELY COUPLED-----------------------------------
+
+- for making it loosely coupled just use the interface GamingConsole so that you can remove the tight coupling
+- just create a interface and implement on both the games
+- then instead of creating an object of any specific class, create the object of interface
+
+- as you have implemented loosely coupled so you can now add as many games as you want
+- add pacman game in the console and run it using the GameRunner class
+
+------------------------------SPRING FRAMEWORK, CONFIGURATION ANNOTATION------------------------------------
+- wiring of dependencies: the process of providing one object with the necessary dependencies it needs to function, often by passing them into a constructor or method
+- firstly created the App02HelloWorldSpring class and then also created the HelloWorldConfiguration with @Configuration annotation
+- then just created new AnnotationConfigApplicationContext() by passing the HelloWorldConfiguration.class
+- @Configuration annotation says that this class contains the beans that you want to manage using spring
+- all the spring beans defined inside the configuration class
+- configuration class we need to launch it so for that use the new AnnotationConfigApplicationContext()
+- we want to launch a spring context with that configuration so we launch inside jvm using the main method
+- we have to declare the beans inside the configuration class
+
+--------------------------FIRST JAVA SPRING BEAN----------------------------------------------
+
+- for that just go inside the configuration class declare a method and use the @Bean annotation
+- now that method will be treated as a bean and can be managed by spring
+- and you can access it by using the context like context.getBean("beanName or methodName")
+- jvm >> spring >> bean
+- you can name the bean also by just the name
+
+----------------------------RECORD------------------------------------
+
+- new feature introduced in jdk 16
+- record Person (String name, int age){};
+- when you are using record then you don't need to create setter getter and constructor all those things
+- you can directly use it and get the data
+
+-----------------------------------------BEANS---------------------------------------------------23 Jun 25
+
+- you can get the bean in different ways one is by method name and other by setting the name of it
+- you can also get it by the type as well like Address.class
+- you can use existing beans to create new beans
+
+-----------------------------SPRING CONTAINER, BEAN AND JAVA BEAN, POJO-----------------------------------
+
+- spring container: it manages spring beans and their lifecycle
+- there are two popular types of IOC containers: bean factory and application context
+
+- Java bean: if a class has public no arguments constructor and has getters & setters and has implements serializable
+- then instance of a class is called java bean
+
+- anything which is managed by spring is called spring bean
+- spring uses IOC container(Bean factory or application context) to manage these objects
+
+- pojo: no constraints and any java object is pojo
+
+-----------------------------------GET ALL BEANS--------------------------------------------24 Jun 25
+
+- for getting all the beans list managed by the spring you can use the context.getBeanDefinitionNames()
+- if you have multiple beans with the same class then it will give error
+- for fixing it you will have to set one as a primary one by using @Primary annotation
+
+- another way of autowiring is @Qualifier("qualifierName") and this will autowire the bean
+
+-------------------------------RUN WITHOUT SEPARATE CONFIGURATION------------------------------26 Jun 25
+
+- just copy all the beans from the configuration file and paste it in the annotation config file
+- and make that file itself as a configuration file and pass the same filename in application context
+
+---------------------------------GETTING SPRING TO CREATE BEAN----------------------------------
+
+- for getting spring to create the bean for use so we have to  declare the game class with annotation @Component
+- after that just where we are using it we have to annotate it with @ComponentScan("packageName")
+- package name where the component is available
+- spring has created the object of pacman game and also autowired with the gaming console
+
+- using the @component and @componentScan annotation spring is able to scan the right packages, find the components, create instances,
+- autowire them for us and get the entire application up and running.
+
