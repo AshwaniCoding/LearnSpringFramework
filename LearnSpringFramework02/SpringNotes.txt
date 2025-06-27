@@ -156,3 +156,99 @@
 - the spring suggest to use the constructor based injection because all the initialization happened just in one method
 - once the initialization is done, the bean is ready to use
 - it's always recommended to use the constructor injection
+
+-----------------------------------LAZY INITIALIZATION---------------------------------------27 Jun 25
+
+- if you even don't write anything inside the application context but the initialization of bean will happen automatically
+- so if you use the @Lazy annotation then it will not happen
+- the bean will only initialize when it is used
+- the bean will be loaded when it is used
+- each bean is initialized at eager unless you use @Lazy annotation
+- it is not recommended and not frequently used
+- if you use it error will not be discovered when you start the application
+
+------------------------------BEAN SCOPES: SINGLETON AND PROTOTYPE-------------------------------
+
+- if you use the @Scope(value=ConfigurableBeanFactory.SCOPE_PROTOTYPE) then the object you try to get each time will be different
+- but in normal class the instance will be same always
+
+- Singleton: one object instance per spring IOC Container
+- Prototype: possibly many object instances per spring IOC container
+
+- if the same instance you will get back then it is called singleton
+- if you get different instance by calling the same bean then it is called prototype
+
+- scopes available only for web aware SpringApplicationContext
+    - Request: one object instance per single http request
+    - Session: one object instance per user http session
+    - Application: one object instance per web application runtime
+    - Websocket: one object instance per websocket instance
+
+----------------------------------JAVA SINGLETON VS SPRING SINGLETON------------------------------
+
+- java singleton: one object instance per JVM
+- spring singleton: one object instance per spring IOC container
+
+--------------------------------SPRING BEANS: POST CONSTRUCT AND PRE DESTROY-------------------------------------
+
+- @PostConstruct: it is used on a method that needs to be executed after dependency injection is done to perform any initialization
+- @PreDestroy: it is used to release the resource that it has been holding. Just before the bean is removed it will call this.
+- ex: if you want to setup database then you will use post construct for the connection of db and pre destroy to close the connection.
+
+------------------------------JAKARTA CONTEXT AND DEPENDENCY INJECTION (CDI)---------------------------------
+
+- J2EE, Jakarta EE are same
+- to use this add the dependency jakarta.inject
+- it's an alternate method to inject the dependency
+- here you need to use the @Named in place of the @Component and @Inject in place of @Autowired
+- Named is replacement for Component and Inject is replacement for Autowired
+- spring supports the Jakarta CDI
+
+----------------------------------JAVA SPRING XML CONFIGURATION------------------------------------------
+
+- first search for spring xml configuration in google and search the context and get the simple context example
+- after that just declare the <bean> tag and give the id as bean name and class as java.lang.String for string value
+- and inside the <constructor-arg> tag give the value you want in this case give the string value
+- and in main method use the ClassPathXmlApplicationContext and give the xml file name with the extension
+- and now you can use the xml configuration in your application
+- and for the component scan use the tag <context:component-scan base-package="package-name"/>
+
+- another way of getting the bean is use the class attribute and give the whole class path with package and provide the name
+
+---------------------------------STEREOTYPE ANNOTATION: COMPONENTS AND MORE--------------------------------
+
+- @Component: Generic annotation applicable for any class
+- @Service: indicates that an annotated class has business logic
+- @Controller: Indicates that an annotated class is a "controller" (e.g., a web controller)
+    - used to define controllers in your web applications and REST Api
+- @Repository: indicates that an annotated class is used to retrieve and/or manipulate data in database
+
+- it's a good practice to use the above annotations instead of using the @Component the common annotation
+
+---------------------------------------ALL ANNOTATIONS-----------------------------------------------------
+
+- @Configuration: indicates that a class declare one or more @Bean methods and may be processed by the Spring container to generate bean definitions
+- @ComponentScan: define specific packages to scan for components. If specific package is not defined scanning will occur from the package of the class that declares this annotation
+- @Bean: indicates that a method produces a bean to be managed by spring container
+- @Component: indicates that an annotated class is a component
+- @Service: specialization of @Component indicating tha an annotated class has business logic
+- @Controller: specialization of @Component indicating that an annotated class is a controller (e.g., a web controller). Used to define controllers in your web applications or REST API
+- @Repository: specialization of @Component indicating that an annotated class is used to retrieve and/or manipulate data in a database
+- @Primary: indicates that a bean should be given preference  when multiple candidates are qualified to autowire a single valued dependency
+- @Qualifier: used on a field or parameter for candidate beans when autowiring
+- @Lazy: indicates that a bean has to be lazily initialized. Absence of @Lazy annotation will lead to eager initialization
+- @Scope(value=ConfigurableBeanFactory.SCOPE_PROTOTYPE): defines a bean to by a prototype - a new instance will be created every time you refer to the bean. Default scope is singleton - one instance per IOC container.
+- @PostConstruct: identifies the method that will be executed after dependency injection is done to perform any initialization.
+- @PreDestroy: identifies the method that will receive the callback notification to signal that instance is in the process of being removed by the container. Typically used to release the resource that it has been holding.
+- @Named: Jakarta Contexts & Dependency Injection (CDI) Annotation similar to Component
+- @Inject: Jakarta Contexts & Dependency Injection (CDI) Annotation similar to Autowired
+
+---------------------------------------FRAMEWORK, MODULE AND PROJECTS-------------------------------------------
+
+- Spring framework contains multiple Spring modules:
+    - Fundamental features: Core (ioc container, dependency injection, autowiring,...)
+    - Web: Spring MVC etc (Web Applications, REST API)
+    - Web Reactive: Spring web flux etc
+    - Data Access: JDBC, JPA etc
+    - Integration: JMS etc
+    - Testing: Mock Objects, Spring MVC Test etc
