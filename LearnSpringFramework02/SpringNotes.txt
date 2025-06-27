@@ -252,3 +252,16 @@
     - Data Access: JDBC, JPA etc
     - Integration: JMS etc
     - Testing: Mock Objects, Spring MVC Test etc
+
+-------------------------------------IMPORTANT MAVEN COMMANDS------------------------------------
+
+- mvn --version
+- mvn compile: Compile source files
+- mvn test-compile: Compile test files
+    - observe carefully: this will also compile source files
+- mvn clean: delete target directory
+- mvn test: run unit tests
+- mvn package: create a jar
+- mvn help:effective-pom
+- mvn dependency:tree
+
