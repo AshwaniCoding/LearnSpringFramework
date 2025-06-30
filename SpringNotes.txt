@@ -313,3 +313,56 @@
 - by default it will show only health but if you want to see all the things then you will have to add "management.endpoints.web.exposure.include=*" in the application.properties file
 - and try hitting the /actuator
 - this is the another way to check whether the specific bean is configured or not
+
+--------------------------------JPA & HIBERNATE-----------------------------------------
+
+- for this just create a new project using the spring initializer
+- and add the dependency spring web, spring data jdbc, spring data jpa, h2 database
+
+- to enable the h2 database just write "spring.h2.console.enabled=true" in application.properties file
+- after that just hit the url localhost:8080/h2-console
+- you have to pick the url from the log and then try for connect
+- so instead using it manually or getting the static url write "spring.datasource.url=jdbc:h2:mem:testdb"
+- if you have schema.sql inside the resource so it will execute the file and create table for you
+
+-------------------------------SPRING JDBC, COMMAND LINE RUNNER---------------------------------------------------
+
+- for this just create a class with annotation @Repository as it is interacting with database
+- then just get the JdbcTemplate variable and using that with update() method you can execute the insert, update and delete query.
+
+- just create a new class and implement it with CommandLineRunner
+- after that autowire the repo class in the new class where you implemented the command line runner
+- and by using that run the query or insert method inside the run() method.
+
+- to get the single object use template.queryForObject() and pass the query with new BeanPropertyRowMapper<>(Course.class)
+
+------------------------------------JPA------------------------------------------------------------
+
+- for this just create a class and annotate it with the @Repository
+- then just create a field Entity manager and autowire it and then just in insert method use entityManager.merge(course);
+- here instead of @Autowired use more specific @PersistenceContext
+- also add the annotation @Transactional in Repository
+
+- if you add "spring.jpa.show-sql=true" then it will show all the queries executed in the logs
+
+- spring jpa: create an interface and implement JpaRepository<Course, Long> after that get it
+
+---------------------------------OVERVIEW----------------------------------------------------
+
+- jdbc: we have to set the connection manually with code
+- spring jdbc: just create the object of jdbc template and using that execute the sql queries
+- jpa: using the entity manager you can execute the sql without writing the sql queries
+- spring data jpa: here we don't even need to create the method, predefined methods are available
+
+- when use jpa implementation
+
+-------------------------------------------HIBERNATE VS JPA-------------------------------------------
+
+- JPA defines specifications. it is an api
+	- how do you define entities?
+	- how do you map attributes?
+	- who manages the entities?
+- hibernate is popular implementation of jpa
+- using hibernate directly would result in a lock in to hibernate
+	- there are other JPA implementations(Toplink, for example)
+- always use jpa in your code
