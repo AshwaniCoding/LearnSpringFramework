@@ -265,3 +265,51 @@
 - mvn help:effective-pom
 - mvn dependency:tree
 
+--------------------------------------SPRING BOOT, DEVTOOLS-------------------------------30 Jun 25
+
+- go to the spring initializer and just create a new maven project with dependency spring web
+- then just extract the project and open it in intellij
+- after that just create a class with @RestController tag
+- and for mapping the url use @RequestMapping("/url") in the method
+- then just return the data in the form of list
+
+- to check what is autoconfigure or make it to debug mode on the specific package
+- write in application.properties file "logging.level.org.springframework=debug"
+
+- if you addon the spring boot devtools dependency it will automatically restart the server and you will get the correct result
+- so now you don't need to restart the server again and again manually
+- spring boot devtools can not manage the changes in pom.xml file
+
+-  to auto configure any thing just use the application.properties file
+
+--------------------------------LOGGING LEVEL LOG, PROFILES-----------------------------------------
+
+- trace, debug, info , warning, error, off
+- for setting up the profile, first create the different properties files with names, application-dev.properties
+- then just add the "spring.profiles.active=dev"
+- the above will merge both the properties files and give the priority to the dev property file
+
+------------------------------------CONFIGURATION PROPERTIES, EMBEDDED SERVER--------------------------------
+
+- in this i am taking the example of currency service
+- for this just create a class and annotate it with @ConfigurationProperties(prefix="currency-service")
+- and also make it a bean by annotating it @Component
+
+- previously we have to create a war file and then use the server then only we can run our application
+- but you can just generate the jar file by mvn clean install
+- and then you can run it by java -jar "jar file" in the cmd and it will run the application
+- you need not to install and fix the server, it will embed automatically
+
+----------------------------------SPRING BOOT ACTUATOR-----------------------------
+
+- monitor and manage your application in the production
+- provides a number of endpoints:
+    - beans: complete list of spring beans in your app
+    - health: application health information
+    - metrics: Application metrics
+    - mappings: details around request mapping
+
+- firstly you will have to add the dependency web-actuator
+- by default it will show only health but if you want to see all the things then you will have to add "management.endpoints.web.exposure.include=*" in the application.properties file
+- and try hitting the /actuator
+- this is the another way to check whether the specific bean is configured or not
