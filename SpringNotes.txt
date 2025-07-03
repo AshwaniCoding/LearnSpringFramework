@@ -366,3 +366,78 @@
 - using hibernate directly would result in a lock in to hibernate
 	- there are other JPA implementations(Toplink, for example)
 - always use jpa in your code
+
+---------------------------------------BUILD YOUR FIRST WEB APP----------------------------------------------1 Jul 25
+
+- web concepts(browser, html, css, request, response, form, session, authentication)
+- spring mvc(dispatcher servlet, view resolvers, model, view, controller, validations...)
+- spring boot(starters, auto configurations)
+- frameworks/tools(jsp, jstl,jpa, bootstrap, spring security, MySQL, h2)
+
+----------------------------------FIRST SPRING MVC CONTROLLER: @ResponseBody, @Controller----------------------------------------------------
+
+- the thing which will handle the web request we have to annotate that class with @Controller
+- and to get the string value we have to use @ResponseBody annotation 
+- and then if you hit the url you will get the response
+
+---------------------------SPRING MVC CONTROLLER TO GIVE HTML RESPONSE, REDIRECT TO JSP USING SB, THYMLEAF---------------------------------------
+
+- for that just use the string buffer and return the string in the form of html in the same way you did above
+
+- you have to create all the jsp pages inside the "src/main/resources/META-INF/resources/WEB-INF/jsp/sayHello.jsp"
+- for redirecting to jsp pages you will have to remove the @ResponseBody
+- also you will have to add the prefix and suffix in the properties file
+- you have to use "spring.mvc.view.prefix=/WEB-INF/jsp/" and "spring.mvc.view.suffix=.jsp", till "src/main/resources/META-INF/resources" already mentioned in spring
+- also add the "tomcat-embed-jasper" dependency in the pom.xml file
+
+- the above way was not working so i tried to do it using the thymleaf
+- for that firstly we have to add the dependency "spring-boot-starter-thymeleaf"
+- then just place your sayHello.html file in the templates folder
+- and pass the sayHello in the @RequestMapping
+
+----------------------------------------------REQUEST PARAM----------------------------------------------------------------2 Jul 25
+
+- if you want to pass the param then you will have to pass the @RequestParam String variableName as a parameter in the method
+- along with the param you have to pass Model model and add the param to model by using the model.addAttribute("variableName",value)
+- and if you want to use inside the thymleaf html page then  you have to use [[${name}]] to get the model value
+
+------------------------IMPORTANCE OF LOGGING WITH SPRINGBOOT------------------------------------------------
+
+- if you want to check the logs of the specific package you can add prefix logging.level.your.package=debug
+- also you can add the logs in your application by just creating the object of Logger from slf4j in the following way
+- private Logger logger =  LoggerFactory.getLogger(getClass());
+- and do logger.debug("Your message")
+
+----------------------------------------------DISPATCHER SERVLET-----------------------------------------------------
+
+- dispatcher servlet receive the request and then find the requested controller
+- then executes the controller method and then created a model and put data into model 
+- and return a view name and identify correct view and then executes the view
+
+--------------------------LOGIN CREDENTIALS IN JSP USING MODEL-------------------------------------------------------
+
+- for this you will have to create a form tag with post and then when you click on submit it will do post as you have to mention method=post in form
+- whatever you pass in the form that can be requested as a Request param and you can add it in the model and later you can use it
+
+---------------------------SESSION ATTRIBUTES----------------------------------------------------------3 Jul 25
+
+- if you want to pass or avail the value of any attribute then you can use the @SessionAttributes("") 
+- when you declare inside it you can use the value in the other pages too
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
