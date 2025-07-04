@@ -389,6 +389,7 @@
 - also you will have to add the prefix and suffix in the properties file
 - you have to use "spring.mvc.view.prefix=/WEB-INF/jsp/" and "spring.mvc.view.suffix=.jsp", till "src/main/resources/META-INF/resources" already mentioned in spring
 - also add the "tomcat-embed-jasper" dependency in the pom.xml file
+- its also working------------
 
 - the above way was not working so i tried to do it using the thymleaf
 - for that firstly we have to add the dependency "spring-boot-starter-thymeleaf"
@@ -424,18 +425,115 @@
 - if you want to pass or avail the value of any attribute then you can use the @SessionAttributes("") 
 - when you declare inside it you can use the value in the other pages too
 
+-------------------------------USING JSTL IN JSP------------------------------------------------
+
+- add the below two dependency:
+		
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+		</dependency>
+
+- use "<%@ taglib prefix="c" uri="jakarta.tags.core" %>" in the jsp file to use the jstl tags like for each and all
+- to use it use with <c:>
+
+----------------------------------ADDING BOOTSTRAP CSS---------------------------------------------------
+
+- to use the bootstrap you have to add the dependency with the version
+- first dependency is webjar bootstrap and webjar jquery
+- then takeout the path from the jar file of the bootstrap.min.css and fix in href using the link tag and also specify the attribute rel="stylesheet" in head
+- also add the bootstrap.min.js right before the closing body tag in script with attribute source="path"
+- also add the jquer.min.js right before the closing body tag in script with attribute source="path"
+- give the path from webjars for each
+
+-----------------------------REDIRECT PAGE------------------------------------------
+
+- for redirecting to the last one return "redirect:todo-list"
+
+--------------------------------VALIDATIONS USING SPRING BOOT-----------------------------------------------------
+
+- Spring boot starter validations: pom.xml
+- Command bean(form backing object): 2 way binding(todo.jsp & TodoController.java)
+- Add validations to bean: todo.java
+- Display validations error in the view: todo.jsp
+
+- for adding the validations you have to add the dependency "spring-boot-starter-validation"
+- for the command bean we have to use the form taglib so that refer form tag library documentation "<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>"
+- and then add the form:form attribute 
+- also use the form:input attribute
+- and then we have to add modelAttribute="same as we pass the variable"
+- also set the path attribute for each form:input with associated value
+- here we did two way binding as firstly we added a dummy todo and then changing the data after getting the same 
+
+- you can add the validations to bean by using the @Size(min=10, message="Enter atleast 10 characters")
+- in the above way you can add the bean validations
+- you also have to add the @Valid before binding it with form
+- also you need to use one more param @BindingResult result to get the errors related to bean
+
+---------------------------------BOOTSTRAP CALENDARS----------------------------------------------
+
+- for adding the calendar you have to add the new dependency "webjars bootstrap-datepicker"
+- after that add the "bootstrap-datepicker.standalone.min.css" in the link href and rel="stylesheet"
+- also add the "bootstrap-datepicker.min.js" in the script src
+- also add this 
+
+	"<script type="text/javascript">
+		$('#targetDate').datepicker({
+	    	format: 'yyyy-mm-dd'
+		});
+	</script>"
+
+- you can also change the date format for the application using "spring.mvc.format.date=dd-MM-yyyy"
+
+-----------------------------------ADD COMPONENT IN JSP------------------------------------------4 Jul 25
+
+- just use <%@ include file="common/navigation.jspf %>
+- in this way you can add the external files in your web app
+
+----------------------------------SPRING SECURITY--------------------------------------------
+
+- for setting it up firstly i have removed the old authentication service and also changed the login controller fully into welcome controller
+- after that just add one more dependency "spring-boot-starter-security"
+- after when you add the spring security it will not allow you to use application without login
+
+------------------------------CONFIGURING SPRING SECURITY WITH CUSTOM USER AND PASSWORD--------------------------------
+
+- for setting up your own password and username you have to create a class spring security configuration with @Configuration annotation
+- under that just create @Bean where you have to return InMemoryUserDetailsManager object 
+- inside that you have to UserDetails with User.withDefaultPasswordEncoder()
+	
+	public InMemoryUserDetailsManager createUserDetailManager(){
+
+        UserDetails userDetail = User.withDefaultPasswordEncoder()
+                .username("ashwanicoding")
+                .password("ashwani")
+                .roles("USER","ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(userDetail);
+    }
+
+- as the above .withDefaultPasswordEncoder() method is deprecated so we will use the BCryptPasswordEncoder and for that we will create a new @Bean with return type PasswordEncoder
+- then instead of .withDefaultPasswordEncoder(), we will use the .builder().passwordEncoder(passwordEncoder)
+- and create a lambda function "Function<String, String> passwordEncoder = input -> passwordEncoder().encode(input);"
 
 
+----------------------------------REMOVING HARDCODING OF USER ID-----------------------------------------------------------
 
+- in spring security you can get the login details of currently logged in user 
+- for that you have to use SecurityContextHolder.getContext().getAuthentication() and assign this to a variable 
+- after that just use the variable and getName(), it will return the username of the currently authenticated user
 
+- as we have used model.get("username") in too many places and just to remove that use gerLoggedInUserMethod()
 
+---------------------------------CREATE MULTIPLE USER-------------------------------------------------
 
-
-
-
-
-
-
+- for creating multiple user just go to createUserDetailsManager and just extract the method
+- and then you can create as many users you want 
 
 
 
